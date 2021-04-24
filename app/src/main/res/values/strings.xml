@@ -3,4 +3,7 @@
     <string name="func_text">Choose sensor(s) to test:</string>
     <string name="accelerometer_btn">Accelerometer</string>
     <string name="compass_btn">Compass</string>
+    <string name="compass_text">Compass text here</string>/>
+    <string name="compass_image">Compass_Image</string>/>
+
 </resources>

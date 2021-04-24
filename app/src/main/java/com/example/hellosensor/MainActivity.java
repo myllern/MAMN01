@@ -14,15 +14,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void openCompass(View view){
-        // When btn is press..
+
+    public void openCompass(View view) {
+
         Intent intent = new Intent(this, DisplayCompassActivity.class);
         startActivity(intent);
-
-
+    }
 
 
     }
 
-
-}
