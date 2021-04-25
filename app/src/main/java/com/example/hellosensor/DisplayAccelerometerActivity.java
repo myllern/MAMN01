@@ -29,9 +29,6 @@ public class DisplayAccelerometerActivity extends AppCompatActivity implements S
     MediaPlayer mediaPlayer;
     private Vibrator v;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,17 +40,9 @@ public class DisplayAccelerometerActivity extends AppCompatActivity implements S
         acc_view = findViewById(R.id.acc_view);
         mediaPlayer = MediaPlayer.create(this, R.raw.falling);
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
-
-
-
-
 
     }
 
@@ -83,16 +72,7 @@ public class DisplayAccelerometerActivity extends AppCompatActivity implements S
             }
   //          if(xVal < - 3)
 //                Record and play sound
-
-
-
-
-
-
-
         }
-
-
     }
     protected float[] lowPass( float[] input, float[] output ) {
         if ( output == null ) return input;
@@ -101,8 +81,6 @@ public class DisplayAccelerometerActivity extends AppCompatActivity implements S
         }
         return output;
     }
-
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 

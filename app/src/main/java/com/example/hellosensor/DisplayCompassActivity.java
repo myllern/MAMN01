@@ -20,22 +20,23 @@ import java.util.Random;
 public class DisplayCompassActivity extends AppCompatActivity implements SensorEventListener{
     ImageView compass_img;
     View compass_view;
-    TextView txt_compass;
+    TextView txt_compass, txt_game;
     int mAzimuth;
     private SensorManager mSensorManager;
     private Sensor mRotationV, mAccelerometer, mMagnetometer;
-
+    boolean haveSensor = false, haveSensor2 = false;
     float[] rMat = new float[9];
     float[] orientation = new float[3];
     private float[] mLastAccelerometer = new float[3];
-    private boolean mLastAccelerometerSet = false;
     private float[] mLastMagnetometer = new float[3];
+    private boolean mLastAccelerometerSet = false;
     private boolean mLastMagnetometerSet = false;
     private Vibrator v;
     private String last = "";
     int[] color;
     MediaPlayer mediaPlayer;
     static final float ALPHA = 0.25f;
+    private int onStopColor;
 
 
 
@@ -50,11 +51,12 @@ public class DisplayCompassActivity extends AppCompatActivity implements SensorE
         compass_img =  findViewById(R.id.compass_image);
         txt_compass = findViewById(R.id.DegreeTv);
         compass_view = findViewById(R.id.compass_view);
-        color = new int[] { Color.BLUE, Color.GRAY, Color.GREEN, Color.YELLOW, Color.CYAN};
+        color = new int[] { Color.GREEN, Color.BLUE, Color.GRAY, Color.YELLOW, Color.CYAN};
         mediaPlayer = MediaPlayer.create(this, R.raw.pling);
+        txt_game = findViewById(R.id.compass_game_text);
+        txt_game.setText("Make the background greener!!");
 
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        start();
 
     }
 
@@ -69,7 +71,7 @@ public class DisplayCompassActivity extends AppCompatActivity implements SensorE
         }
 
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            mLastAccelerometer = lowPass(event.values.clone(),  mLastAccelerometer);
+            mLastMagnetometer = lowPass(event.values.clone(),  mLastMagnetometer);
             mLastAccelerometerSet = true;
         } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             mLastMagnetometer = lowPass(event.values.clone(),  mLastMagnetometer);
@@ -96,16 +98,31 @@ public class DisplayCompassActivity extends AppCompatActivity implements SensorE
             compass_view.setBackgroundColor(color[rNum]);
             where = "N";
 
-
-
-             mediaPlayer.start();
+            mediaPlayer.start();
 
 
         }
-        if (mAzimuth < 350 && mAzimuth > 280)
+        if (mAzimuth >= 350 || mAzimuth <= 10) {
+            v.vibrate(30);
+            int aryLength = color.length;
+            Random random = new Random();
+            int rNum = random.nextInt(aryLength);
+            compass_view.setBackgroundColor(color[rNum]);
+            where = "N";
+            mediaPlayer.start();
+            onStopColor = rNum;
+        }
+        if (mAzimuth < 350 && mAzimuth > 280) {
             where = "NW";
+            if(onStopColor == 0 ){
+                txt_game.setText("You won!");
+            }else {
+                txt_game.setText("Make the background greener!!");
+            }
+        }
         if (mAzimuth <= 280 && mAzimuth > 260)
             where = "W";
+
         if (mAzimuth <= 260 && mAzimuth > 190)
             where = "SW";
         if (mAzimuth <= 190 && mAzimuth > 170)
@@ -114,9 +131,15 @@ public class DisplayCompassActivity extends AppCompatActivity implements SensorE
             where = "SE";
         if (mAzimuth <= 100 && mAzimuth > 80)
             where = "E";
-        if (mAzimuth <= 80 && mAzimuth > 10)
+        if (mAzimuth <= 80 && mAzimuth > 10) {
             where = "NE";
 
+            if(onStopColor == 0 ){
+                txt_game.setText("You won!");
+            }else {
+                txt_game.setText("Make the background greener!!");
+            }
+        }
         txt_compass.setText(mAzimuth + "° " + where);
 
         last = where;
@@ -137,7 +160,23 @@ public class DisplayCompassActivity extends AppCompatActivity implements SensorE
         return output;
     }
 
+    public void start() {
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) == null) {
+            if ((mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) == null) || (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) == null)) {
 
+            }
+            else {
+                mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+                haveSensor = mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
+                haveSensor2 = mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_UI);
+            }
+        }
+        else{
+            mRotationV = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+            haveSensor = mSensorManager.registerListener(this, mRotationV, SensorManager.SENSOR_DELAY_UI);
+        }
+    }
 
 
 

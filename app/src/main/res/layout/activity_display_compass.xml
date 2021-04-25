@@ -13,20 +13,30 @@
         android:id="@+id/compass_image"
         android:layout_width="316dp"
         android:layout_height="303dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="76dp"
         android:contentDescription="@string/compass_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/compass_game_text"
         app:srcCompat="@drawable/compass" />
 
     <TextView
         android:id="@+id/DegreeTv"
         android:layout_width="115dp"
         android:layout_height="95dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="76dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/compass_image" />
+
+    <TextView
+        android:id="@+id/compass_game_text"
+        android:layout_width="155dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="64dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
