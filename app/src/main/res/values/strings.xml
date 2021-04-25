@@ -5,5 +5,7 @@
     <string name="compass_btn">Compass</string>
     <string name="compass_text">Compass text here</string>/>
     <string name="compass_image">Compass_Image</string>/>
+    <string name="acc_text">Accelerometer</string>/>
+    <string name="acc_text_info">Accelerometer value:</string>/>
 
 </resources>
