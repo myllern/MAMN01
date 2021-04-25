@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@android:color/holo_blue_light"
     android:layout_height="match_parent"
+    android:id="@+id/bg"
     tools:context=".DisplayCompassActivity">
+
 
     <ImageView
         android:id="@+id/compass_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="316dp"
+        android:layout_height="303dp"
         android:layout_marginTop="84dp"
         android:contentDescription="@string/compass_image"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,11 +22,10 @@
         app:srcCompat="@drawable/compass" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/DegreeTv"
         android:layout_width="115dp"
         android:layout_height="95dp"
         android:layout_marginTop="80dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/compass_image" />
