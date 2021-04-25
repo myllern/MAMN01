@@ -72,7 +72,10 @@ public class DisplayAccelerometerActivity extends AppCompatActivity implements S
             }
   //          if(xVal < - 3)
 //                Record and play sound
+
         }
+
+
     }
     protected float[] lowPass( float[] input, float[] output ) {
         if ( output == null ) return input;
@@ -81,6 +84,8 @@ public class DisplayAccelerometerActivity extends AppCompatActivity implements S
         }
         return output;
     }
+
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
